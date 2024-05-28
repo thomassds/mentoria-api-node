@@ -1,0 +1,17 @@
+[
+    {
+        "type": "postgres",
+        "host": "roundhouse.proxy.rlwy.net",
+        "port": 26862,
+        "username": "postgres",
+        "password": "OaGAneRpJnHmLkPlhpgIrihCkHqzrMwt",
+        "database": "railway",
+        "logging": false,
+        "entities": ["dist/api/database/entities/*.js"],
+        "migrations": ["dist/api/database/migrations/*.js"],
+        "cli": {
+            "migrationsDir": "src/api/database/migrations",
+            "entitiesDir": "src/api/database/entities"
+        }
+    }
+]
