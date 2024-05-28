@@ -1,0 +1,31 @@
+GitHub
+    Commitar codigo:
+        git add .
+        git commit -m "Comentario sobre o que foi feito"
+        git push
+
+yarn
+    Instalar bibliotecas
+        yarn
+
+    Instalar novas bibliotecas
+        yarn add "nome da biblioteca"
+
+    Instalar dependencias de dev:
+        yarn add -d "nome da biblioteca"
+
+    Instalar de forma global na maquina:
+        yarn add -g "nome da biblioteca"
+
+    Remover biblioteca:
+        yarn remove "nome da biblioteca"
+
+Migrations:
+    Criar migration:
+        yarn typeorm migration:create -n "nome da Migration"
+
+    Executar Migration:
+        yarn typeorm migration:run
+
+    Reverter Migration:
+        yarn typeorm migration:revert
