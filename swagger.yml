@@ -1,0 +1,78 @@
+openapi: 3.0.0
+
+info:
+    title: "EvenTicket Api"
+    description: "Api para aplicação de compra e venda de ingressos para um eventos"
+    version: "1.0.0"
+    contact:
+        email: "thomasdomingos@hotmail.com"
+    license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+paths:
+    "401":
+        description: Ocorreu um erro de autenticação do middleware.
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        code:
+                            type: integer
+                            description: http status code para de erro de autenticação nas api que a aplicação consome
+                            example: 401
+                        message:
+                            type: string
+                            description: Message de erro do que aconteceu
+                            example: "Unanthenticated"
+    "403":
+        description: Ocorreu um erro de autenticação do middleware, neste caso a autenticação falhou pois o cliente é o incorreto.
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        code:
+                            type: integer
+                            description: http status code para de erro de autenticação nas api que a aplicação consome
+                            example: 403
+                        message:
+                            type: string
+                            description: Message de erro do que aconteceu
+                            example: Resource Unavailable
+    "404":
+        description: Ocorreu um erro na busca do evento solicitado
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        code:
+                            type: integer
+                            description: http status code para de erro de autenticação nas api que a aplicação consome
+                            example: 404
+                        message:
+                            type: string
+                            description: Message de erro do que aconteceu
+                            example: Not found!
+    "500":
+        description: Pode ter ocorrido um erro na aplicação ou erro de validação.
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        code:
+                            type: integer
+                            description: http status code para de erro generico
+                            example: 500
+                        message:
+                            type: string
+                            description: Message de erro do que aconteceu
+                            example: Something broke!
+components:
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
