@@ -1,0 +1,1 @@
+export { PermissionRepositoryInterface } from "./permissionRepositoryInterface";
