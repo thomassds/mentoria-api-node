@@ -11,6 +11,12 @@ export class UserRouter {
 
         router.post("/users", controller.store);
 
+        router.get("/users/id", controller.selectById);
+
+        router.get("/users", controller.selectAll);
+
+        router.put("/users", controller.updateById);
+
         return router;
     }
 }

@@ -43,4 +43,57 @@ export class UserController {
             throw new DatabaseError("Cannot create User");
         }
     };
+
+    public selectById = async (req: Request, res: Response) => {
+        const { id } = req.params;
+
+        try {
+            const response = await this.userRepository.findOne({
+                where: { id },
+            });
+            return res.status(200).json(response);
+        } catch (error) {
+            throw new DatabaseError("Cannot get this User");
+        }
+    };
+
+    public selectAll = async (req: Request, res: Response) => {
+        try {
+            const response = await this.userRepository.find();
+            return res.status(200).json(response);
+        } catch (error) {
+            throw new DatabaseError("Cannot get Users");
+        }
+    };
+
+    public updateById = async (req: Request, res: Response) => {
+        const { id, name, phone, password, email } = req.body;
+
+        try {
+            let userToUptade = await this.userRepository.findOne({
+                where: id,
+            });
+            if (!userToUptade) {
+                return res
+                    .status(404)
+                    .json({ message: "Usuário não encontrado" });
+            }
+
+            if (name) userToUptade.name = name;
+            if (phone) userToUptade.phone = phone;
+            if (email) userToUptade.email = email;
+            if (password) {
+                const passwordHash = await this.bcrypt.generateHash(password);
+                userToUptade.password = passwordHash;
+            }
+
+            await this.userRepository.save(userToUptade);
+            return res.status(200).json(userToUptade);
+        } catch (error) {
+            console.error("Erro ao atualizar usuário:", error);
+            return res
+                .status(500)
+                .json({ message: "Erro ao atualizar usuário" });
+        }
+    };
 }
