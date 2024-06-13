@@ -10,7 +10,7 @@ import {
 @Entity("users")
 export class User {
     @PrimaryColumn()
-    id: string;
+    id?: string;
 
     @Column({
         name: "name",
@@ -35,10 +35,10 @@ export class User {
 
     @Column({
         name: "birthdate",
-        nullable: false,
+        nullable: true,
         type: "date",
     })
-    birthdate: string;
+    birthdate?: string;
 
     @Column({
         name: "password",
@@ -53,19 +53,19 @@ export class User {
         nullable: false,
         type: "timestamptz",
     })
-    createdAt: Date;
+    createdAt?: Date;
 
     @UpdateDateColumn({
         name: "updated_at",
         nullable: false,
         type: "timestamptz",
     })
-    updatedAt: Date;
+    updatedAt?: Date;
 
     @DeleteDateColumn({
         name: "deleted_at",
         nullable: false,
         type: "timestamptz",
     })
-    deletedAt: Date;
+    deletedAt?: Date;
 }
