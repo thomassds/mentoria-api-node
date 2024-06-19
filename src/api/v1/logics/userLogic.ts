@@ -3,6 +3,8 @@ import { UserRepository } from "../repositories/userRepository";
 import { User } from "../../database/entities/user";
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
 import { Bcrypt } from "../services/bcrypt";
+import { Users } from "aws-sdk/clients/budgets";
+import { UserInterface } from "../interfaces";
 
 @Service()
 export class UserLogic {
@@ -25,5 +27,17 @@ export class UserLogic {
 
     async selectAll(): Promise<User[]> {
         return await this.userRepository.selectAll();
+    }
+
+    async selectById(id: string) {
+        const response = await this.userRepository.selectById(id);
+
+        return response;
+    }
+
+    async update(id: string, data: QueryDeepPartialEntity<User>) {
+        const response = await this.userRepository.update(id, data);
+
+        return response;
     }
 }

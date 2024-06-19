@@ -1,9 +1,9 @@
 import { EntityRepository, Repository, getRepository } from "typeorm";
-import { Permission } from "../../database/entities/permission";
-import { Service } from "typedi";
-import { PermissionRepositoryInterface } from "./interfaces";
+import { Permission } from "../../database/entities";
+import { PermissionRepositoryInterface } from "./interfaces/permissionRepositoryInterface";
 import { DatabaseError } from "../../../config/exceptions";
-import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
+import { Service } from "typedi";
+import { PermissionInterface } from "../interfaces";
 
 @Service()
 @EntityRepository(Permission)
@@ -14,46 +14,46 @@ export class PermissionRepository implements PermissionRepositoryInterface {
         this.repository = getRepository(Permission);
     }
 
-    async store(description: string, key: string): Promise<Permission> {
+    async store({
+        description,
+        key,
+    }: PermissionInterface): Promise<Permission> {
         try {
-            const response = await this.repository.save({
-                key,
-                description,
-            });
+            const response = await this.repository.save({ description, key });
 
             return response;
         } catch (error: any) {
-            throw new DatabaseError("Fail to save this permission.", error);
-        }
-    }
-
-    async update(
-        id: string,
-        data: QueryDeepPartialEntity<Permission>
-    ): Promise<void> {
-        try {
-            await this.repository.update({ id }, data);
-        } catch (error: any) {
-            throw new DatabaseError("Fail to update this permission.", error);
-        }
-    }
-
-    async selectById(id: string): Promise<Permission> {
-        try {
-            return await this.repository.findOneOrFail(id);
-        } catch (error: any) {
-            throw new DatabaseError(
-                `Fail to get this permission. ${id}`,
-                error
-            );
+            throw new DatabaseError("Fail to register this permission", error);
         }
     }
 
     async selectAll(): Promise<Permission[]> {
         try {
-            return await this.repository.find();
+            const response = await this.repository.find();
+
+            return response;
         } catch (error: any) {
-            throw new DatabaseError("Fail to get this permissions.", error);
+            throw new DatabaseError("Fail to get all permissions", error);
+        }
+    }
+
+    async selectById(id: string): Promise<Permission | void> {
+        try {
+            const response = await this.repository.findOne(id);
+
+            return response;
+        } catch (error: any) {
+            throw new DatabaseError("Fail to get this permission", error);
+        }
+    }
+
+    async update({ id, description, key }: PermissionInterface): Promise<void> {
+        try {
+            await this.repository.update({ id }, { description, key });
+
+            return;
+        } catch (error: any) {
+            throw new DatabaseError("Fail to update this permission", error);
         }
     }
 }
