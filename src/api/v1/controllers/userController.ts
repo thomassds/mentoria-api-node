@@ -1,11 +1,6 @@
 import Container, { Service } from "typedi";
-import { v4 as uuidV4 } from "uuid";
 import { Request, Response } from "express";
-import { BusinessError, DatabaseError } from "../../../config/exceptions";
 import { UserLogic } from "../logics/userLogic";
-import { Bcrypt } from "../services/bcrypt";
-import { User } from "../../database/entities";
-import { ResponseScope } from "aws-sdk/clients/qbusiness";
 
 @Service()
 export class UserController {
