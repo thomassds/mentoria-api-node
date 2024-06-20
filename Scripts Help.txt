@@ -29,3 +29,51 @@ Migrations:
 
     Reverter Migration:
         yarn typeorm migration:revert
+
+Metodologia:
+    POST: Criar novos recursos. Não idempotente.
+    Exemplo:POST /users HTTP/1.1
+            Host: example.com
+            Content-Type: application/json
+
+            {
+            "name": "John Doe",
+            "email": "john.doe@example.com"
+            }
+
+    PUT: Atualizar ou criar recursos específicos. Idempotente.
+    Exemplo:
+    PUT /users/123 HTTP/1.1
+            Host: example.com
+            Content-Type: application/json
+
+            {
+            "id": 123,
+            "name": "John Doe",
+            "email": "john.doe@example.com"
+            }
+
+    GET: Recuperar dados. Seguro e idempotente.
+    Exemplo:
+            GET /users/123 HTTP/1.1
+            Host: example.com
+
+    DELETE: Remover recursos. Idempotente.
+    Exemplo:
+            DELETE /users/123 HTTP/1.1
+            Host: example.com
+
+    PATCH: Modificar parcialmente recursos. Não idempotente.
+    Exemplo:
+    PATCH /users/123 HTTP/1.1
+Host: example.com
+            Content-Type: application/json
+
+            {
+            "email": "new.email@example.com"
+            }
+
+    OPTIONS: Consultar métodos suportados. Usado para CORS e verificação de métodos.
+    Exemplo:
+            OPTIONS /users HTTP/1.1
+            Host: example.com
